@@ -17,7 +17,7 @@ jobs:
       - run: docker build -t frontend -f dockerfile.dev .
       - run: docker run -e CI=true frontend npm test
       - name: create ZIP folder
-        run: zip -r front.zip . -x "*.git*" "node_modules/*"
+        run: zip -r front.zip . -x "*.git*"
       - name: deploy to aws beanstalk
         uses: einaregilsson/beanstalk-deploy@v22
         with:
@@ -25,6 +25,6 @@ jobs:
           application_name: frontend
           environment_name: Frontend-env
           deployment_package: front.zip
-          version_label: 4
+          version_label: 5
           aws_access_key: ${{ secrets.AWS_ACCESS }}
           aws_secret_key: ${{ secrets.AWS_ACCESS_SECRET }}
