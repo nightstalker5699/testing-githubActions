@@ -25,6 +25,6 @@ jobs:
           application_name: frontend
           environment_name: Frontend-env
           deployment_package: front.zip
-          version_label: 6
+          version_label: 7
           aws_access_key: ${{ secrets.AWS_ACCESS }}
           aws_secret_key: ${{ secrets.AWS_ACCESS_SECRET }}
