@@ -16,3 +16,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - run: docker build -t frontend -f dockerfile.dev .
       - run: docker run -e CI=true frontend npm test
+      - name: create ZIP folder
+        run: zip -r front.zip . -x "*.git*" "node_modules/*"
+      - name: deploy to aws beanstalk
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          region: us-east-1
+          application_name: front
+          environment_name: Front-env
+          deployment_package: front.zip
+          aws_access_key: ${{ secrets.AWS_ACCESS }}
+          aws_secret_key: ${{ secrets.AWS_ACCESS_SECRET }}
